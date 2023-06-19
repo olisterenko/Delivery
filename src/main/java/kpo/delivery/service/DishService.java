@@ -32,11 +32,6 @@ public class DishService {
                 .toList();
     }
 
-    public DishDTO get(final Long id) {
-        return dishRepository.findById(id)
-                .map(dish -> mapToDTO(dish, new DishDTO()))
-                .orElseThrow(NotFoundException::new);
-    }
 
     public Long create(final DishModel dishModel) {
         final Dish dish = new Dish();

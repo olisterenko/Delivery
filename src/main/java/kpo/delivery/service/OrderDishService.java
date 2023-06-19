@@ -5,6 +5,7 @@ import kpo.delivery.domain.Dish;
 import kpo.delivery.domain.Order;
 import kpo.delivery.domain.OrderDish;
 import kpo.delivery.model.OrderDishDTO;
+import kpo.delivery.model.OrderDishModel;
 import kpo.delivery.repos.DishRepository;
 import kpo.delivery.repos.OrderDishRepository;
 import kpo.delivery.repos.OrderRepository;
@@ -76,4 +77,15 @@ public class OrderDishService {
         return orderDish;
     }
 
+    public List<OrderDishModel> findByOrder(Order order) {
+        final List<OrderDish> orderDishs = orderDishRepository.findAllByOrder(order);
+        return orderDishs.stream()
+                .map(orderDish -> mapToModel(orderDish, new OrderDishModel()))
+                .toList();
+    }
+    private OrderDishModel mapToModel(final OrderDish orderDish, final OrderDishModel orderDishModel) {
+        orderDishModel.setQuantity(orderDish.getQuantity());
+        orderDishModel.setDish(orderDish.getDish().getId());
+        return orderDishModel;
+    }
 }

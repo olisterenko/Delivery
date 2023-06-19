@@ -9,5 +9,5 @@ import java.util.List;
 
 
 public interface OrderDishRepository extends JpaRepository<OrderDish, Long> {
-    List<OrderDishModel> findAllByOrder(Order order);
+    List<OrderDish> findAllByOrder(Order order);
 }

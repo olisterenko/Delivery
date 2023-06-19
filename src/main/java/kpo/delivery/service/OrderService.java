@@ -20,13 +20,16 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderDishRepository orderDishRepository;
+    private final OrderDishService orderDishService;
     private final DishRepository dishRepository;
 
     public OrderService(final OrderRepository orderRepository,
                         final OrderDishRepository orderDishRepository,
+                        final OrderDishService orderDishService,
                         final DishRepository dishRepository) {
         this.orderRepository = orderRepository;
         this.orderDishRepository = orderDishRepository;
+        this.orderDishService = orderDishService;
         this.dishRepository = dishRepository;
     }
 
@@ -66,7 +69,7 @@ public class OrderService {
 
     private OrderDTO mapToDTO(final Order order, final OrderDTO orderDTO) {
         orderDTO.setId(order.getId());
-        orderDTO.setDishes(orderDishRepository.findAllByOrder(order));
+        orderDTO.setDishes(orderDishService.findByOrder(order));
         return orderDTO;
     }
 
